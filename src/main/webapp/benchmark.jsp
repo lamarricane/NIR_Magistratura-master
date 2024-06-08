@@ -1,9 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page import="java.util.List"%>
-<%@ page import="model.Benchmark"%>
+<%@ page import="model.Book"%>
 <html>
     <head>
         <title> Benchmark </title>
+
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ page isELIgnored="false"%>
@@ -76,8 +79,10 @@
             }
             </style>
 
+
+
     </head>
-<body style="background-image: url('change_page.jpg');">
+<body style="background-image: url('change_book.jpg');">
 <%
     List<Book> books = (List) request.getAttribute("books");
 %>
@@ -96,72 +101,62 @@
                     </tr>
                 </thread>
                 <body>
-
+                    <% for(Book book : books) { %>
+                        <tr>
+                            <td style="text-align:center"> <%= book.getId() %> </td>
+                            <td style="text-align:center"> <%= book.getName() %> </td>
+                            <td style="text-align:center"> <%= book.getGenre() %> </td>
+                            <td style="text-align:center"> <%= book.getAuthor().getName() %> </td>
+                            <td style="text-align:center"> <%= book.getPublisher().getName() %> </td>
+                            <td style="text-align:center"> <%= book.getNumberOfPages() %> </td>
+                            <td style="text-align:center"> <%= book.getYearOfPublishing() %> </td>
+                        <tr>
+                    <% } %>
                 </body>
             </table>
         </div>
-        <div class="row">
-            <form method="post" action="book">
+        <div class="column">
+            <form method="post" action="benchmark">
                 <div class="text-field">
-                        <div class ="form-group">
-                            <label>Delete book with Name:</label>
-                            <input type="text" name="deleteName" class="text-field__input" placeholder="name">
-                        </div>
-                        <div class ="form-group">
-                            <label>Update book with name:</label>
-                            <input type="text" name="updateName" class="text-field__input" placeholder="name">
-                        </div>
-                        <div class ="form-group">
-                            <label>New data:</label>
-                            <input type="text" name="newName" class="text-field__input" placeholder="new name">
-                            <input type="text" name="updateGenre" class="text-field__input" placeholder="new genre">
-                            <input list="listUpdateAuthors" type="text" id="updateAuthor" name="updateAuthor" class="text-field__input" placeholder="new author">
-                            <input list="listUpdatePublishers" type="text" id="updatePublisher" name="updatePublisher" class="text-field__input" placeholder="new publisher">
-                            <input type="text" name="updateNumberOfPages" class="text-field__input" placeholder="new number of pages">
-                            <input type="text" name="updateYearOfPublishing" class="text-field__input" placeholder="new year of publishing">
-                            <script>
-							    var input1 = document.getElementById("updateAuthor");
-								input1.oninput = function () {
-								    setUpdateAuthors(input1.value);
-								}
-							</script>
-                            <datalist id="listUpdateAuthors">
-                                <div id="updateElements"></div>
-                            </datalist>
-                            <script>
-							    var input1 = document.getElementById("updatePublisher");
-								input1.oninput = function () {
-								    setUpdatePublishers(input1.value);
-								}
-							</script>
-                            <datalist id="listUpdatePublishers">
-                                <div id="updateElements"></div>
-                            </datalist>
-                        </div>
-                        <div class ="form-group">
-                            <label>Insert book:</label>
-                            <input type="text" name="insertName" class="text-field__input" placeholder="name">
-                            <input type="text" name="insertGenre" class="text-field__input" placeholder="genre">
-                            <input list="listInsertAuthors" type="text" name="insertAuthor" id="insertAuthor" class="text-field__input" placeholder="author">
-                            <input list="listInsertPublishers" type="text" name="insertPublisher" id="insertPublisher" class="text-field__input" placeholder="publisher">
-                            <input type="text" name="insertNumberOfPages" class="text-field__input" placeholder="number of Pages">
-                            <input type="text" name="insertYearOfPublishing" class="text-field__input" placeholder="year of publishing">
-                            <script>
-							    var input2 = document.getElementById("insertAuthor");
-								input2.oninput = function () {
-								    setInsertAuthors(input2.value);
-								}
-                                var input2 = document.getElementById("insertPublisher");
-								input2.oninput = function () {
-								    setInsertPublishers(input2.value);
-								}
-							</script>
-                            <datalist id="listInsertAuthors">
-                                <div id="insertElements"></div>
-                            </datalist>
-                        </div>
+                                    <div class ="form-group">
+                                        <label>Find By First Letter:</label>
+                                        <input type="text" name="findByFirstLetter" class="text-field__input" placeholder="first letter">
+                                        <button type="submit" name="action" value="findByFirstLetter" class="button7">Find By First Letter</button>
+                                    </div>
+                                    <div class ="form-group">
+                                        <label>Find By Author:</label>
+                                        <input type="text" name="findByAuthor" class="text-field__input" placeholder="author">
+                                        <button type="submit" name="action" value="findByAuthor" class="button7">Find By Author</button>
+                                    </div>
+                                     <div class ="form-group">
+                                        <label>Find By Publisher:</label>
+                                        <input type="text" name="findByPublisher" class="text-field__input" placeholder="publisher">
+                                        <button type="submit" name="action" value="findByPublisher" class="button7">Find By Publisher</button>
+                                     </div>
+                                     <div class ="form-group">
+                                        <label>Find By Genre:</label>
+                                        <input type="text" name="findByGenre" class="text-field__input" placeholder="genre">
+                                        <button type="submit" name="action" value="findByGenre" class="button7">Find By Genre</button>
+                                     </div>
+                                     <div class ="form-group">
+                                        <label>Find By Number of Pages:</label>
+                                        <input type="text" name="term" class="text-field__input" placeholder="term">
+                                        <input type="text" name="findByNumberOfPages" class="text-field__input" placeholder="number of pages">
+                                        <button type="submit" name="action" value="findByNumberOfPages" class="button7">Find By Number of Pages</button>
+                                     </div>
+                                     <div class ="form-group">
+                                         <label>Find By Year of Publishing:</label>
+                                         <input type="text" name="term1" class="text-field__input" placeholder="term">
+                                         <input type="text" name="findByYearOfPublishing" class="text-field__input" placeholder="year of publishing">
+                                         <button type="submit" name="action" value="findByYearOfPublishing" class="button7">Find By Year of Publishing</button>
+                                     </div>
+                <div class="buttons">
                     <p align="center">
-                        <button a href="http://localhost:8080/" class="button7" type="submit" >Save changes</button>
+                        <button type="submit" name="action" value="generateBookList" class="button7">Generate Book List</button>
+                        <button type="submit" name="action" value="deleteBookList" class="button7">Delete Book List</button>
+                        <button type="submit" name="action" value="sortBookListByName" class="button7">Sort Book List By Name</button>
+                        <button type="submit" name="action" value="sortBookListByYear" class="button7">Sort Book List By Year</button>
+                        <button type="submit" name="action" value="sortBookListByNumberOfPages" class="button7">Sort Book List By Number of Pages</button>
                         <a href="/" class="button7">Back</a>
                     </p>
                 </div>

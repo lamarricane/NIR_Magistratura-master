@@ -3,6 +3,7 @@ package model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,21 +19,23 @@ public class Author {
     @GeneratedValue(generator = "author_id_seq")
     @Column(name = "id")
     private int id;
+
     @Setter
     @Getter
     @Column(name = "name")
     private String name;
+
     @Column(name = "birth_date")
-    private String birth_date;
+    private LocalDate birthDate;
 
     @Setter
     @Getter
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Book> books;
 
-    public Author(String name, String birth_date) {
+    public Author(String name, LocalDate birthDate) {
         this.name = name;
-        this.birth_date = birth_date;
+        this.birthDate = birthDate;
         books = new ArrayList<>();
     }
 
@@ -45,18 +48,18 @@ public class Author {
         books.remove(book);
     }
 
-    public void setBirthDate(String birth_date) {
-        this.birth_date = birth_date;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
-    public String getBirthDate() {
-        return birth_date;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
     @Override
     public String toString() {
         return "Author: " +
                 "\n Name: " + name +
-                "\n Birth Date: " + birth_date;
+                "\n Birth Date: " + birthDate;
     }
 }

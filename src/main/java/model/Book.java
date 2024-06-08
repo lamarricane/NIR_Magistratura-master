@@ -29,9 +29,9 @@ public class Book {
     @Column(name = "genre")
     private String genre;
     @Column(name = "number_of_pages")
-    private int number_of_pages;
+    private int numberOfPages;
     @Column(name = "year_of_publishing")
-    private int year_of_publishing;
+    private int yearOfPublishing;
 
     @Setter
     @Getter
@@ -44,27 +44,27 @@ public class Book {
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    public Book(String name, String genre, int number_of_pages, int year_of_publishing) {
+    public Book(String name, String genre, int numberOfPages, int yearOfPublishing) {
         this.name = name;
         this.genre = genre;
-        this.number_of_pages = number_of_pages;
-        this.year_of_publishing = year_of_publishing;
+        this.numberOfPages = numberOfPages;
+        this.yearOfPublishing = yearOfPublishing;
     }
 
     public int getNumberOfPages() {
-        return number_of_pages;
+        return numberOfPages;
     }
 
-    public void setNumberOfPages(int number_of_pages) {
-        this.number_of_pages = number_of_pages;
+    public void setNumberOfPages(int numberOfPages) {
+        this.numberOfPages = numberOfPages;
     }
 
     public int getYearOfPublishing() {
-        return year_of_publishing;
+        return yearOfPublishing;
     }
 
-    public void setYearOfPublishing(int year_of_publishing) {
-        this.year_of_publishing = year_of_publishing;
+    public void setYearOfPublishing(int yearOfPublishing) {
+        this.yearOfPublishing = yearOfPublishing;
     }
 
     @Override
@@ -72,8 +72,8 @@ public class Book {
         return "Book: " +
                 "\n Name: " + name +
                 "\n Genre: " + genre +
-                "\n Number of pages: " + number_of_pages +
-                "\n Year of publishing: " + year_of_publishing;
+                "\n Number of pages: " + numberOfPages +
+                "\n Year of publishing: " + yearOfPublishing;
     }
 }
 

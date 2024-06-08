@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 @WebServlet("/author")
@@ -57,7 +58,7 @@ public class AuthorServlet extends HttpServlet {
                 if (!req.getParameter("updateName").isEmpty()) {
                     String updateName = req.getParameter("updateName");
                     String newName = req.getParameter("newName");
-                    String newBirthDate = req.getParameter("newBirthDate");
+                    LocalDate newBirthDate = LocalDate.parse(req.getParameter("newBirthDate"));
                     Author author = checkAuthor(updateName);
                     if (author != null) {
                         author = service.findAuthorById(author.getId());
@@ -65,7 +66,7 @@ public class AuthorServlet extends HttpServlet {
                             author.setName(newName);
                             service.updateAuthor(author);
                         }
-                        if (!newBirthDate.isEmpty()) {
+                        if (!String.valueOf(newBirthDate).isEmpty()) {
                             author = service.findAuthorById(author.getId());
                             author.setBirthDate(newBirthDate);
                             service.updateAuthor(author);
@@ -76,9 +77,9 @@ public class AuthorServlet extends HttpServlet {
                 }
                 if (!req.getParameter("insertName").isEmpty()) {
                     String name = req.getParameter("insertName");
-                    String birth_date = req.getParameter("insertBirthDate");
+                    LocalDate birthDate = LocalDate.parse(req.getParameter("insertBirthDate"));
                     if (checkAuthor(name) == null && !name.isEmpty()) {
-                        service.saveAuthor(new Author(name, birth_date));
+                        service.saveAuthor(new Author(name, birthDate));
                     } else {
                         throw new RuntimeException("Неверные данные в поле для создания автора книг!");
                     }

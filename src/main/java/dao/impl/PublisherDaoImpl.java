@@ -2,9 +2,12 @@ package dao.impl;
 
 import dao.Dao;
 import model.Author;
+import model.Book;
 import model.Publisher;
 import org.hibernate.*;
+import org.hibernate.sql.Update;
 
+import java.sql.Statement;
 import java.util.List;
 
 public class PublisherDaoImpl implements Dao<Publisher> {
@@ -52,11 +55,11 @@ public class PublisherDaoImpl implements Dao<Publisher> {
     }
 
     @Override
-    public List<Publisher> findByFirstLetter(char firstLetter) {
+    public List<Publisher> findByFirstLetter(String firstLetter) {
         Session session = sessionFactory.openSession();
         List<Publisher> publishers = session.createQuery("FROM Publisher WHERE name LIKE :firstLetter")
-                        .setParameter("firstLetter", firstLetter +"%")
-                        .list();
+                .setParameter("firstLetter", firstLetter + "%")
+                .list();
         session.close();
         return publishers;
     }
@@ -79,4 +82,19 @@ public class PublisherDaoImpl implements Dao<Publisher> {
     public List<Publisher> findAll() {
         return (List<Publisher>) sessionFactory.openSession().createQuery("From Publisher").list();
     }
+
+    public void multipleDelete() {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            List<Publisher> publishers = findAll();
+
+            for (Publisher publisher : publishers) {
+                session.createQuery("DELETE FROM Publisher b WHERE b.id = :id")
+                        .setParameter("id", publisher.getId())
+                        .executeUpdate();
+            }
+            transaction.commit();
+        }
+    }
 }
+

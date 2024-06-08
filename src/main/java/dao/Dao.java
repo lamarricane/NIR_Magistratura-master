@@ -12,7 +12,9 @@ public interface Dao<T> {
 
     void delete(T t);
 
-    List<T> findByFirstLetter(char firstLetter);
+    void multipleDelete();
+
+    List<T> findByFirstLetter(String firstLetter);
 
     List<T> sortByName();
 

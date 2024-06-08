@@ -3,6 +3,8 @@ import model.*;
 import service.*;
 import org.hibernate.SessionFactory;
 import utils.HibernateSessionFactoryUtil;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public class WebJspApplication {
@@ -13,29 +15,46 @@ public class WebJspApplication {
         AuthorService authorService = new AuthorService(new AuthorDaoImpl(sessionFactory));
         PublisherService publisherService = new PublisherService(new PublisherDaoImpl(sessionFactory));
 
-        /*Author firstAuthor = new Author("Mary Stewart", "01.03.1933");
-        Author secondAuthor = new Author("Sarah Gio", "30.04.1977");
-        Author thirdAuthor = new Author("Rachel Caine", "26.10.1960");
+        Author firstAuthor = new Author("Mary Stewart", LocalDate.of(1950, 3, 28));
+        Author secondAuthor = new Author("Sarah Gio", LocalDate.of(1976, 8, 13));
+        Author thirdAuthor = new Author("Rachel Caine", LocalDate.of(1980, 9, 9));
+        Author fourthAuthor = new Author("Alisa Iskra", LocalDate.of(2001, 9, 28));
+        Author fifthAuthor = new Author("Maria Karpova", LocalDate.of(2001, 7, 23));
+
+
+        //bookService.multipleDeleteBook();
+        //authorService.multipleDeleteAuthor();
 
         Publisher firstPublisher = new Publisher("Styria Pichler Verlag", "Austria");
         Publisher secondPublisher = new Publisher("Muenshen Edition Manufaktur", "German");
         Publisher thirdPublisher = new Publisher("Evro Book", "Serbia");
 
-        Book firstBook = new Book("A fire in the night", "Detective", 322, 1990);
+        /*Book firstBook = new Book("A fire in the night", "Detective", 322, 1990);
         Book secondBook = new Book("Abode of thorns", "Romance", 536, 1989);
         Book thirdBook = new Book("The last camellia", "Adventures", 298, 2004);
         Book fourthBook = new Book("Wolf River", "Detective", 450, 2013);
         Book fifthBook = new Book("Gloomy Bay", "Detective", 480, 2018);
+        */
 
-        authorService.saveAuthor(firstAuthor);
+        /*authorService.saveAuthor(firstAuthor);
         authorService.saveAuthor(secondAuthor);
         authorService.saveAuthor(thirdAuthor);
+        authorService.saveAuthor(fourthAuthor);
+        authorService.saveAuthor(fifthAuthor);
 
-        publisherService.savePublisher(firstPublisher);
+         */
+
+
+
+        /*publisherService.savePublisher(firstPublisher);
         publisherService.savePublisher(secondPublisher);
         publisherService.savePublisher(thirdPublisher);
 
-        firstBook.setAuthor(firstAuthor);
+         */
+
+
+
+        /*firstBook.setAuthor(firstAuthor);
         secondBook.setAuthor(firstAuthor);
         thirdBook.setAuthor(secondAuthor);
         fourthBook.setAuthor(thirdAuthor);
@@ -108,7 +127,9 @@ public class WebJspApplication {
             System.out.println(book.toString());
         }
 
-        List<Book> bookList = bookService.findAllBooks();
+         */
+
+        /*List<Book> bookList = bookService.findAllBooks();
         for (Book book : bookList) {
             System.out.println(book.toString());
         }
@@ -132,13 +153,14 @@ public class WebJspApplication {
         for (Book book : bookList) {
             System.out.println(book.toString());
         }
+        */
 
-        List<Book> bookList = bookService.findBookByYear("<", 2013);
+        List<Book> bookList = bookService.findBookByYearOfPublishing("<", 1950);
         for (Book book : bookList) {
             System.out.println(book.toString());
         }
 
-        List<Book> bookList = bookService.findBookByNumberOfPages("<", 450);
+        /*List<Book> bookList = bookService.findBookByNumberOfPages("<", 450);
         for (Book book : bookList) {
             System.out.println(book.toString());
         }
@@ -153,16 +175,19 @@ public class WebJspApplication {
             System.out.println(book.toString());
         }
         */
-
-
-
-
-
-
-
-
-
-
-
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -49,6 +49,7 @@
         <table class = "table_dark">
             <thread>
             <tr>
+                <th>ID Book</th>
                 <th>Author Name</th>
                 <th>Book Name</th>
                 <th>Genre</th>
@@ -60,6 +61,7 @@
             <body>
                   <% for(Book book : books) { %>
                      <tr>
+                        <td style="text-align:center"> <%= book.getId() %> </td>
                         <td style="text-align:center"> <%= book.getAuthor().getName() %> </td>
                         <td style="text-align:center"> <%= book.getName() %> </td>
                         <td style="text-align:center"> <%= book.getGenre() %> </td>
@@ -75,6 +77,11 @@
                 <a href="book" class="button7">Change books</a>
             </p>
         </div>
+         <div class="buttons" style="text-align: center;">
+                    <p>
+                        <a href="benchmark" class="button7">Benchmark</a>
+                    </p>
+                </div>
     </div>
     <div class="row" align="center">
          <table class="table_dark">
@@ -101,6 +108,7 @@
                 </p>
          </div>
     </div>
+
 </div>
 </body>
 </form>

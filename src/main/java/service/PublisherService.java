@@ -37,11 +37,16 @@ public class PublisherService {
         return publisherDao.findByLocation(location);
     }
 
-    public List<Publisher> findPublisherByFirstLetter(char letter) {
+    public List<Publisher> findPublisherByFirstLetter(String letter) {
         return publisherDao.findByFirstLetter(letter);
     }
 
     public List<Publisher> findAllPublishers() {
         return publisherDao.findAll();
     }
+
+    public void multipleDeletePublisher() {
+        publisherDao.multipleDelete();
+    }
 }
+

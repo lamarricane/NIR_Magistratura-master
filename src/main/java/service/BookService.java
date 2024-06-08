@@ -28,7 +28,7 @@ public class BookService {
         bookDao.delete(book);
     }
 
-    public List<Book> findBookByFirstLetter(char letter){
+    public List<Book> findBookByFirstLetter(String letter){
         return bookDao.findByFirstLetter(letter);
     }
 
@@ -44,8 +44,8 @@ public class BookService {
         return bookDao.findByNumberOfPages(term, numberOfPages);
     }
 
-    public List<Book> findBookByYear(String term, int year) {
-        return bookDao.findByYear(term, year);
+    public List<Book> findBookByYearOfPublishing(String term, int yearOfPublishing) {
+        return bookDao.findByYearOfPublishing(term, yearOfPublishing);
     }
 
     public List<Book> findBookByGenre(String genre) {
@@ -66,5 +66,13 @@ public class BookService {
 
     public List<Book> findAllBooks() {
         return bookDao.findAll();
+    }
+
+    public void multipleSaveBook(){
+        bookDao.multipleSave();
+    }
+
+    public void multipleDeleteBook() {
+        bookDao.multipleDelete();
     }
 }

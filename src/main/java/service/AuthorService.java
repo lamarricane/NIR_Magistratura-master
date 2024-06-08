@@ -36,7 +36,11 @@ public class AuthorService {
         return authorDao.sortByName();
     }
 
-    public List<Author> findAuthorByFirstLetter(char letter) {
+    public List<Author> findAuthorByFirstLetter(String letter) {
         return authorDao.findByFirstLetter(letter);
+    }
+
+    public void multipleDeleteAuthor() {
+        authorDao.multipleDelete();
     }
 }

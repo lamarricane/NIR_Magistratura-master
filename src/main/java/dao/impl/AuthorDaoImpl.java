@@ -52,10 +52,10 @@ public class AuthorDaoImpl implements Dao<Author> {
     }
 
     @Override
-    public List<Author> findByFirstLetter(char firstLetter) {
+    public List<Author> findByFirstLetter(String firstLetter) {
         Session session = sessionFactory.openSession();
         List<Author> authors = session.createQuery("FROM Author WHERE name LIKE :firstLetter")
-                .setParameter("firstLetter", firstLetter +"%")
+                .setParameter("firstLetter", firstLetter + "%")
                 .list();
         session.close();
         return authors;
@@ -69,5 +69,19 @@ public class AuthorDaoImpl implements Dao<Author> {
     @Override
     public List<Author> findAll() {
         return (List<Author>) sessionFactory.openSession().createQuery("From Author").list();
+    }
+
+    public void multipleDelete() {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            List<Author> authors = findAll();
+
+            for (Author author : authors) {
+                session.createQuery("DELETE FROM Author b WHERE b.id = :id")
+                        .setParameter("id", author.getId())
+                        .executeUpdate();
+            }
+            transaction.commit();
+        }
     }
 }

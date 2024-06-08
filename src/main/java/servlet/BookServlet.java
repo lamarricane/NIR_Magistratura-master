@@ -44,10 +44,6 @@ public class BookServlet extends HttpServlet {
             AuthorService authorService = new AuthorService(new AuthorDaoImpl(sessionFactory));
             PublisherService publisherService = new PublisherService(new PublisherDaoImpl(sessionFactory));
             if (!req.getParameterMap().isEmpty()) {
-                ///////////////
-                if (!req.getParameter("sortByName").isEmpty()){
-                    String sortByName = req.getParameter("sortByName");
-                }
                 if (!req.getParameter("deleteName").isEmpty()) {
                     String deleteName = req.getParameter("deleteName");
                     Book book = checkBook(deleteName);
@@ -81,9 +77,9 @@ public class BookServlet extends HttpServlet {
                     String genre = req.getParameter("insertGenre");
                     String author = req.getParameter("insertAuthor");
                     String publisher = req.getParameter("insertPublisher");
-                    int number_of_pages = Integer.parseInt(req.getParameter("insertNumberOfPages"));
-                    int year_of_publishing = Integer.parseInt(req.getParameter("insertYearOfPublishing"));
-                    if (checkParams(name, genre, author, publisher, String.valueOf(number_of_pages), String.valueOf(year_of_publishing)) && checkBook(name) == null) {
+                    int numberOfPages = Integer.parseInt(req.getParameter("insertNumberOfPages"));
+                    int yearOfPublishing = Integer.parseInt(req.getParameter("insertYearOfPublishing"));
+                    if (checkParams(name, genre, author, publisher, String.valueOf(numberOfPages), String.valueOf(yearOfPublishing)) && checkBook(name) == null) {
                         List<Author> authors = authorService.findAllAuthors();
                         List<Publisher> publishers = publisherService.findAllPublishers();
                         int count1 = 0;
@@ -92,7 +88,7 @@ public class BookServlet extends HttpServlet {
                             if (a.getName().equals(author)) {
                                 for (Publisher b : publishers) {
                                     if (b.getName().equals(publisher)) {
-                                        Book book = new Book(name, genre, number_of_pages, year_of_publishing);
+                                        Book book = new Book(name, genre, numberOfPages, yearOfPublishing);
                                         book.setAuthor(a);
                                         book.setPublisher(b);
                                         a.addBook(book);
@@ -193,7 +189,7 @@ public class BookServlet extends HttpServlet {
         return null;
     }
 
-    private boolean checkParams(String name, String genre, String author, String publisher, String number_of_pages, String year_of_publishing) {
-        return !name.isEmpty() && !genre.isEmpty() && !author.isEmpty() && !publisher.isEmpty() && !number_of_pages.isEmpty() && !year_of_publishing.isEmpty();
+    private boolean checkParams(String name, String genre, String author, String publisher, String numberOfPages, String yearOfPublishing) {
+        return !name.isEmpty() && !genre.isEmpty() && !author.isEmpty() && !publisher.isEmpty() && !numberOfPages.isEmpty() && !yearOfPublishing.isEmpty();
     }
 }
